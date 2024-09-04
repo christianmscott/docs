@@ -1,0 +1,58 @@
+---
+title: 'Register Servers'
+description: 'Join your hardware, VPS, or cloud VM instances to your Planum account.'
+---
+
+## Purpose
+
+Joining servers to your account allows you to manage servers (reboot, specify sites, etc.) as well as deploy applications to them. Servers are grouped by Sites, which represent logical groups of servers in physical location or region. 
+
+Once a server is joined to your account, you're able to deploy your applications to them on a site-by-site basis, and your apps are automatically load-balanced across the servers in the site.
+
+## Joining Servers
+
+### Create a Server
+
+In order to register a server, you need to create one in the Planum app first. You'll give it a name, assign it to a site, and receive a registration command to run on the server, which will join it to your account. 
+![Create Server](/images/create-server.gif)
+
+### Register a Server
+Once you've created the server and copied the registration command, ssh to your freshly created ubuntu server and paste the installation command. The command will run the installation script, located at https://planum.cloud/get-planum.sh, installing pre-requisites and the planum agent. Once the command completes, your server should be registered in the portal!
+
+![Register Server](/images/register-server.gif)
+
+
+## Ready for Deployment
+You've now created and registered servers with your Planum account. Now, you can move on to deploying applications. 
+<CardGroup>
+
+<Card
+    title="Deploy Applications"
+    icon="earth-americas"
+    href="/deployapps"
+  >
+    Deploy any containerized application to your servers.
+  </Card>
+  <Card
+    title="Publish Apps Online"
+    icon="circle-nodes"
+    href="/publicingress"
+  >
+    Enable ingress with a public URL and TLS certificate, no port-forwarding required. 
+  </Card>
+  <Card
+    title="Sites"
+    icon="location-pin"
+    href="/resoruces/sites"
+  >
+    Learn more about sites. 
+  </Card>
+  <Card
+    title="Servers"
+    icon="server"
+    href="/resoruces/servers"
+  >
+    Learn more about servers. 
+  </Card>
+
+</CardGroup>

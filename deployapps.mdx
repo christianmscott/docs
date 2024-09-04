@@ -1,0 +1,81 @@
+---
+title: 'Deploy Applications'
+description: 'Learn how to deploy applications to your servers.'
+---
+
+## Purpose
+
+Applications in Planum represent groups of containers deployed to a site. When you deploy an application, it's automatically distributed across the servers in the selected site, sharing the workload and providing built-in load balancing.
+
+## Deploying Applications
+
+Deploying an application in Planum involves a few simple steps:
+
+1. Create components
+2. Set environment variables
+3. Configure application info
+4. Review and deploy
+
+### Create Components
+
+Components are the building blocks of your application. Each component represents a container image that will be deployed.
+
+![Create Components](/images/create-components.gif)
+
+For each component:
+Enter the repository name (e.g., "hub-name/repo-name"), specify the image tag (optional, defaults to "latest"), choose the container registry (e.g., Docker Hub), enable public ingress if needed and configure published ports for local network access.
+
+### Set Environment Variables
+
+Define environment variables for your application and individual components. 
+
+![Set Environment Variables](/images/set-env-vars.gif)
+
+App-level environment variables are set on all components in the application, while component-level environment variables are specific to each component.
+
+### Configure Application Info, Review, and Deploy
+
+Provide general information about your application and review your settings. 
+
+![Configure Application Info](/images/configure-app-info.gif)
+
+Set the application name, choose the site(s) where the application will be deployed, and double-check all your settings. When you're ready, click "create application."
+
+
+## Post-Deployment
+
+Once your application is deployed, you can monitor the deployment status, view logs, and manage your application through the Planum dashboard. If you enabled public ingress, you will find the link to your component in the component settings. 
+
+![Post Deployment](/images/post-deploy.gif)
+
+
+<CardGroup>
+  <Card
+    title="Publish Apps Online"
+    icon="circle-nodes"
+    href="/publicingress"
+  >
+    Enable ingress with a public URL and TLS certificate, no port-forwarding required. 
+  </Card>
+  <Card
+    title="Sites"
+    icon="location-pin"
+    href="/resoruces/sites"
+  >
+    Learn more about sites. 
+  </Card>
+  <Card
+    title="Servers"
+    icon="server"
+    href="/resoruces/servers"
+  >
+    Learn more about servers. 
+  </Card>
+  <Card
+    title="Applications"
+    icon="earth-americas"
+    href="/resoruces/applications"
+  >
+    Learn more about applications. 
+  </Card>
+</CardGroup>
