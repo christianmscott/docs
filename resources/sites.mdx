@@ -1,37 +1,41 @@
 ---
 title: 'Sites'
-description: 'Display inline code and code blocks'
+description: 'Organize servers into logical groups based on their location'
 icon: 'location-pin'
 ---
 
-## Basic
+## Basics
+Sites are essentially groups of servers. These can be groups to define a region or physical location, or they can be used to logically define groups of servers for specific purposes within the same region or physical location. When servers are joined to a site, they form memberships with each other over the local network, enabling scheduling of your applications, load balancing, fault-tolerance, etc. 
 
-### Inline Code
+Sites are defined by a network latency and connectivity boundary for the servers they contain. The servers within a site should be able to reach each other on a local network, and that network should not be stretched across physical locations or WAN connections. Additionally, connectivity between the servers must meet certain requirements:
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+- **Round-trip latency** between servers in a site should not exceed 100ms. 
+- **Sufficient network bandwidth** between servers is required. Ideally, 1Gbps, but youll be fine with much less, depending on your use-case. Services within the same application may run on different servers, so keep this in mind when connecting to your network. 
+- **Internet access** is required to enable connectivity to the planum dashboard, application container registries, etc. It is not required all of the time, however. As long as your servers are able to download any container images that exist outside of the site registry, and check in with the planum dashboard occasionally, you’ll be all set. If your sites have infrequent connectivity to the planum platform, you will see deployments or configuration changes sit in a pending state, until they are picked up by your servers and applied. 
+ 
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
 
-### Code Block
+## Servers
+If a server is not heard from in awhile, the apps deployed to that server will be rescheduled on the others. When application network ports are published to the local network, they are load balanced across all servers in the site, meaning you can hit any server’s IP address in the site to reach that service. When a server is deleted or removed from the site, the applications deployed to that server are relocated to other servers in the site and the server is made ready for registration with another site.
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+The site view in the planum dashboard provides visibility into the current status of all servers in your site: 
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
+![Site View](/images/site-view.png)
 
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+## Status
+Sites have four potential statuses. 
+
+| Status   | Meaning | Color |
+| -------- | ------- | ----- |
+| Healthy  | All servers online   | Green |
+| Degraded | Some servers online    | Yellow |
+| Offline  | All servers offline   | Red |
+| Unused   | No servers joined   | Gray |
+
+On the site settings tab, you can change the name and location of the site or delete the site. 
+
+![Site Settings](/images/site-settings.png)
+
+
+## Applications
+Sites serve as the boundary for application data and configuration, so any apps deployed to a site stay with a site. When an application is deployed to a site, it will be deployed on any server in that site which supports the deployment, with respect to resource utilization, system architecture, and requested resources. Planum uses a spread strategy for container scheduling, meaning applications are evenly distributed across a site’s servers. 
