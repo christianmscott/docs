@@ -1,59 +1,36 @@
 ---
 title: 'Servers'
-description: 'Add image, video, and other HTML elements'
+description: 'Compute resources that run your applications.'
 icon: 'server'
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+## Basics
+Servers represent the physical or cloud-hosted servers, or individual computers, that will run your application workloads. These could be container-based applications, or virtual machine workloads. To join servers to your planum account, just provision a fresh ubuntu server of your chosen version, and [register your server with planum](/registerservers). During registration, an agent is installed on each server which communicates with the planum dashboard, providing telemetry, status information, and command and control for your application workload and system settings. Servers must be joined to a [site](/resources/sites), where they form a local network cluster, sharing the load of your applications, storage, and databases. 
 
-## Image
+### System Requirements
+Servers can be almost any server/compute device which can run linux. Anything from small single board computers, such as a raspberry pi, to racks of blade servers, or even VPS or Cloud-hosted virtual machines may be joined to planum for management and deployment of your application workloads. The currently supported architectures and operating systems include: 
 
-### Using Markdown
+| Operating System | Architecture     |
+| ---------------- | ---------------- |
+| Ubuntu 22.04     | `amd64`, `arm64` |
+| Ubuntu 24.04     | `amd64`, `arm64` |
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+The agent installation script includes basic setup of pre-requisites such as docker/containerd and service configuration. 
 
-```md
-![title](/path/image.jpg)
-```
+### Network
+Servers should be physically connected to some sort of local network, with outbound internet access, and direct network access to the other servers in your site. You may connect servers with wireless connections as well, such as Wi-Fi, cellular, or other radio-based networks. 
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+## Status
+Server status is depicted in the planum dashboard under the servers menu item. Servers have several potential states. 
 
-### Using Embeds
+| Status   | Meaning | Color |
+| -------- | ------- | ----- |
+| Online  | The server has recently communicated with the planum dashboard   | Green |
+| Offline | The server has not been heard from in awhile    | Red |
+| Restarting   | The server is rebooting | Green, pulsing |
+| Unregistered   | The server has not yet been registered with planum   | Gray |
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+![Server Status](/images/server-status.png)
 
-```html
-<img height="200" src="/path/image.jpg" />
-```
 
-## Embeds and HTML elements
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  style={{ width: '100%', borderRadius: '0.5rem' }}
-></iframe>
-
-<br />
-
-<Tip>
-
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
-
-### iFrames
-
-Loads another HTML page within the document. Most commonly used for embedding videos.
-
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
-```

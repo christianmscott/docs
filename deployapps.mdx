@@ -5,7 +5,7 @@ description: 'Learn how to deploy applications to your servers.'
 
 ## Purpose
 
-Applications in Planum represent groups of containers deployed to a site. When you deploy an application, it's automatically distributed across the servers in the selected site, sharing the workload and providing built-in load balancing.
+Applications in Planum represent groups of containers deployed to a site. When you deploy an application, it's automatically distributed across the servers in the selected site, sharing the workload and providing built-in load balancing. Applications may be comprised of many containers, for instance, a frontend interface, middle tier, and database. These components may be deployed from a container registry or from a Git repo. 
 
 ## Deploying Applications
 
@@ -18,12 +18,12 @@ Deploying an application in Planum involves a few simple steps:
 
 ### Create Components
 
-Components are the building blocks of your application. Each component represents a container image that will be deployed.
+Components are the building blocks of your application. Each component represents a container image that will be deployed. When deploying from a container registry, the image is simply pulled using the settings you specify. When deploying from a git repository, you must include a Dockerfile for each container you would like built/deployed and an image will be built and deployed to your servers. 
 
 ![Create Components](/images/create-components.gif)
 
 For each component:
-Enter the repository name (e.g., "hub-name/repo-name"), specify the image tag (optional, defaults to "latest"), choose the container registry (e.g., Docker Hub), enable public ingress if needed and configure published ports for local network access.
+Enter the repository name (e.g., "hub-name/repo-name"), specify the image tag (optional, defaults to "latest"), choose the container registry (e.g., Docker Hub), enable public ingress if needed and configure published ports for local network access. For git repositories, you may specify the repo, add authentication information, select your build path and branch, as well as the networking options. 
 
 ### Set Environment Variables
 
@@ -46,6 +46,8 @@ Set the application name, choose the site(s) where the application will be deplo
 
 Once your application is deployed, you can monitor the deployment status, view logs, and manage your application through the Planum dashboard. If you enabled public ingress, you will find the link to your component in the component settings. 
 
+For git components, you may now simply commit and push changes to your branch selected in the application configuration and your application will be continuously redeployed. 
+
 ![Post Deployment](/images/post-deploy.gif)
 
 
@@ -60,21 +62,21 @@ Once your application is deployed, you can monitor the deployment status, view l
   <Card
     title="Sites"
     icon="location-pin"
-    href="/resoruces/sites"
+    href="/resources/sites"
   >
     Learn more about sites. 
   </Card>
   <Card
     title="Servers"
     icon="server"
-    href="/resoruces/servers"
+    href="/resources/servers"
   >
     Learn more about servers. 
   </Card>
   <Card
     title="Applications"
     icon="earth-americas"
-    href="/resoruces/applications"
+    href="/resources/applications"
   >
     Learn more about applications. 
   </Card>

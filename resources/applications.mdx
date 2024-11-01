@@ -1,88 +1,38 @@
 ---
 title: 'Applications'
-description: 'Text, title, and styling in standard markdown'
+description: 'A group of containers deployed to your servers and exposed locally or publicly'
 icon: 'earth-americas'
 ---
 
-## Titles
+## Basics
+Applications represent the services you wish to deploy to your servers. They are groups of docker containers, called components, that make up a logical application workload. For instance, you may have a frontend, middle-tier, and a database component/container running on your servers. The frontend component can be published on the web with [planum ingress](/resources/ingress) (public URL and TLS certificate), access the middle tier for business logic, data retrieval, etc. and ultimately query the database.
 
-Best used for section headers.
+Application are deployed to sites, or groups of servers, rather than specific servers (servers share the load within a site). Regardless of what server your app components are deployed to, they can communicate with each other via a network plane extended to all servers in the site.
 
-```md
-## Titles
-```
+### Components
+Components are containers, that make up an Application. An application can be made up of several components, or just one. Each component may have several replicas deployed, and requests for a component will be balanced between all of the replicas. Connections to components do not utilize session tracking, so components with multiple replicas must be stateless.
 
-### Subtitles
+By default, components are connected to an application-scoped network, meaning they can connect to each other and the internet, but no outside request can connect to them. Components in separate applications deployed to the same site cannot communicate with each other.
 
-Best use to subsection headers.
+You can publish components on the local network, which consumes a port on the site. I.e. if you deploy a web service on port 80, published to the site (with the publish ports setting), you can hit that service on port 80 using any server IP address within the site.
 
-```md
-### Subtitles
-```
+![Publish Port](/images/publish-port.gif)
 
-<Tip>
+Additionally, you can publish components on the internet, with [planum ingress](/resources/ingress). In this configuration, you do not need to publish a local port, and you do not need to configure any port forwarding or firewall rules on your router/firewall equipment.
 
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+### Modifying Applications
+You can modify an existing application, to adjust environment variables, add, remove or update components, re-assign the application to a new site, or remove the application. To modify an application, click its list item in the dashboard, applications page, to go to the application’s page. Click the settings tab to see configuration information. Here, you can change things like the app name, site, environment variables, etc.
 
-</Tip>
 
-## Text Formatting
 
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+### Custom Container Images
+You can deploy a component using any public container image, or you may use a private one. In order to deploy a private container image, you must specify authentication information. You can do so using the container registry dropdown to select your registry, the filling in your authentication information using the format `user:token`.
 
-| Style         | How to write it   | Result          |
-| ------------- | ----------------- | --------------- |
-| Bold          | `**bold**`        | **bold**        |
-| Italic        | `_italic_`        | _italic_        |
-| Strikethrough | `~strikethrough~` | ~strikethrough~ |
+![Custom Image](/images/custom-image.gif)
 
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+<Note>Automatic updates of container images deployed to your sites are not currently supported. In order to update the version of the application deployed, you must update the tag value, and save the component to trigger a new deployment.</Note>
 
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+## Continuous Deployment with Git Repositories
+You can deploy an application from a git repository. When you deploy an application from a git repository, the repository is cloned and the application is built and deployed. You can specify the branch, tag, or commit hash to deploy. For private repositories, the servers in your site simply need network access to the git repository. If your repository requires authenticaiton, you can specify a token or SSH key which the servers will use to clone and check your repo for updates.
 
-| Text Size   | How to write it          | Result                 |
-| ----------- | ------------------------ | ---------------------- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
-
-## Linking to Pages
-
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
-
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
-
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
-
-## Blockquotes
-
-### Singleline
-
-To create a blockquote, add a `>` in front of a paragraph.
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
-```
-
-### Multiline
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-```
-
-### LaTeX
-
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
-
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-```
+![Git Components](/images/create-git.png)
