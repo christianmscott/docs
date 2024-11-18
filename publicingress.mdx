@@ -3,4 +3,21 @@ title: 'Enable Public Ingress'
 description: 'Publish your deployed applications on the web with a public URL and TLS certificate.'
 ---
 
-## Why?
+## Basics
+Enabling public ingress on an application will publish the application on the web with a public URL and TLS certificate using a sub-domain on planum.dev. This allows you to access your application from anywhere on the internet, without needing to configure port forwarding or firewall rules on your router/firewall equipment, cloud-based load balancing and ingress solutions, or purchasing on-premises load balancing solutions. The ingress system works by using an outbound tunneling connection from your servers to the planum.dev network, which is then used to route traffic to your application.
+
+Public ingress is enabled on a per-component basis. For example, you could have an application with two components - a Next.js app and a postgres database - where the next.js app is enabled for public ingress and the database is only accessible on the local application network.
+
+### Enabling Public Ingress
+
+To enable public ingress on an application, navigate to the application's settings page, and click the tab for the component you wish to publish. Here, you can enable public ingress, and specify the port exposed by your service which traffic should be routed to. The domain name will be automatically generated, and appear in the component's settings page as soon as you enable public ingress for a component.
+
+![Public Ingress](/images/public-ingress.gif)
+
+### TLS Certificates
+
+When you enable public ingress on an application, a TLS certificate will be automatically generated for the domain name you specify. The certificate will be automatically renewed, and will be valid for the lifetime of the application. The certificate will be trusted by all major browsers and operating systems.
+
+### Disabling Public Ingress
+
+If you would like to disable public ingress on an application, you can do so by navigating to the application's settings page, and click the tab for the component for which you wish to disable ingress. Here, you can disable public ingress, and the public URL and TLS certificate will be removed. The application will no longer be accessible from the internet, and will only be accessible from within the application network, by other devices on your local network via published ports.

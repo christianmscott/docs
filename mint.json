@@ -26,7 +26,7 @@
     "url": "https://planum.cloud/dashboard/applications"
   },
   "tabs": [
-   
+
   ],
   "anchors": [
     {
@@ -57,8 +57,7 @@
         "resources/sites",
         "resources/servers",
         "resources/applications",
-        "resources/ingress",
-        "resources/registries"
+        "resources/ingress"
       ]
     }
   ],
